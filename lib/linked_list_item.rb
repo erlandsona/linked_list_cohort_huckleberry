@@ -15,7 +15,7 @@ class LinkedListItem
   end
 
   def last?
-    true
+    !@next_item
   end
 
 end
