@@ -2,8 +2,18 @@ require_relative 'linked_list_item'
 
 class LinkedList
 
-  def initialize(first_value=nil)
-    @first_item = LinkedListItem.new(first_value) if first_value
+  def initialize(*values)
+    @first_item = LinkedListItem.new(values.first) if values.first
+
+    unless @first_item.nil?
+      iterater = 1
+      while iterater < values.length
+        current_node = @first_item
+        current_node = current_node.next_item until current_node.last?
+        current_node.next_item = LinkedListItem.new(values[iterater])
+        iterater += 1
+      end
+    end
   end
 
   def push(item)
