@@ -12,6 +12,15 @@ ll = LinkedList.new
 # <YOUR CODE GOES HERE>
 
 
+
 # Then, print it out
 #
 # <YOUR CODE GOES HERE>
+if payloads.length == 0
+  print "* -> nil"
+else
+  string = "* -> "
+  payloads.each{|x| string << "\"#{x}\" -> "}
+  string << "nil"
+  print string
+end
