@@ -31,12 +31,10 @@ class LinkedList
     if index == 0
       @first_item.payload
     else
-      count = 0
       current_node = @first_item
-      while count < index
+      index.times do
         raise IndexError if current_node.last?
         current_node = current_node.next_item
-        count += 1
       end
       current_node.payload
     end
