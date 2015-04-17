@@ -63,19 +63,6 @@ class LinkedList
     end
   end
 
-  def to_s
-    string = "| "
-    if @first_item.nil?
-      return string += "|"
-    else
-      current_node = @first_item
-      string += "#{current_node.payload}"
-
-      current_node = current_node.next_item and
-      string += ", #{current_node.payload}" until current_node.last?
-      return string += " |"
-    end
-  end
 
 #  def delete(index)
 #
@@ -99,5 +86,19 @@ class LinkedList
       @size -= 1
     end
     nil
+  end
+
+  def to_s
+    str = "| "
+    # loop goes here
+    current_node = @first_item
+    until current_node.nil?
+      str << current_node.payload
+      punctuation = current_node.last? ? " " : ", "
+      str << punctuation
+      current_node = current_node.next_item
+    end
+    str << "|"
+    str
   end
 end
