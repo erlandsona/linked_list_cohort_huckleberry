@@ -6,11 +6,10 @@ class LinkedList
 
   def initialize(*values)
     @size = 0
-
-
-      values.length.times do |i|
-        push(values[i])
-      end
+    # Refactor to utilize values.each or some other Enumerable Method...
+    values.length.times do |i|
+      push(values[i])
+    end
   end
 
   def push(item)
@@ -24,17 +23,21 @@ class LinkedList
     @last_item = new_item
   end
 
+  def get_item(index)
+    current_node = @first_item
+    index.times do
+      raise IndexError if @first_item.nil? or current_node.last?
+      current_node = current_node.next_item
+    end
+    current_node
+  end
+
   def get(index)
     raise IndexError if index < 0
     if index == 0
       @first_item.payload
     else
-      current_node = @first_item
-      index.times do
-        raise IndexError if @first_item.nil? or current_node.last?
-        current_node = current_node.next_item
-      end
-      current_node.payload
+      get_item(index).payload
     end
   end
 
@@ -43,16 +46,12 @@ class LinkedList
   end
 
   def []=(index, item)
-    raise IndexError if index < 0 or @first_item.nil?
     if index == 0
       @first_item.payload
     else
-      count = 0
       current_node = @first_item
-      while count < index
-        raise IndexError if current_node.last?
+      index.times do
         current_node = current_node.next_item
-        count += 1
       end
       current_node.payload=(item)
     end
@@ -78,12 +77,16 @@ class LinkedList
     end
   end
 
+#  def delete(index)
+#
+#    @size -= 1
+#  end
+
   def delete(index)
     raise IndexError if @first_item.nil?
-
     current_node = @first_item.next_item
     prev_node = @first_item
-    while current_node
+    until current_node.nil?
       if index == 0
         @first_item = current_node
         return true
