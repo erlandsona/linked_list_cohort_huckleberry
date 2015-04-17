@@ -11,16 +11,19 @@ ll = LinkedList.new
 #
 # <YOUR CODE GOES HERE>
 
+payloads.each do |payload|
+  ll.push payload
+end
 
 
 # Then, print it out
 #
 # <YOUR CODE GOES HERE>
-if payloads.length == 0
-  print "* -> nil"
-else
-  string = "* -> "
-  payloads.each{|x| string << "\"#{x}\" -> "}
-  string << "nil"
-  print string
+
+print "* -> "
+
+payloads.size.times do |i|
+  print "#{ll.get(i).inspect} -> "
 end
+
+print "nil"

@@ -17,30 +17,14 @@ class LinkedList
   end
 
   def push(item)
+    new_item = LinkedListItem.new(item)
     if @first_item.nil?
-      @first_item = LinkedListItem.new(item)
+      @first_item =  new_item
     else
-      current_node = @first_item
-      current_node = current_node.next_item until current_node.last?
-      current_node.next_item = LinkedListItem.new(item)
+      @last_item.next_item = new_item
     end
+    @last_item = new_item
   end
-
-#  def []=(index, value)
-#    raise IndexError if index < 0 or @first_item.nil?
-#    if index == 0
-#      @first_item.payload = value
-#    else
-#      count = 0
-#      current_node = @first_item
-#      while count < index
-#        raise IndexError if current_node.last?
-#        current_node = current_node.next_item
-#        count += 1
-#      end
-#      current_node.payload = value
-#    end
-#  end
 
   def get(index)
     raise IndexError if index < 0 or @first_item.nil?
@@ -59,6 +43,10 @@ class LinkedList
   end
 
   def [](index)
+    get(index)
+  end
+
+  def []=(index, item)
     raise IndexError if index < 0 or @first_item.nil?
     if index == 0
       @first_item.payload
@@ -70,10 +58,9 @@ class LinkedList
         current_node = current_node.next_item
         count += 1
       end
-      current_node.payload
+      current_node.payload=(item)
     end
   end
-
 
   def size
     if @first_item.nil?
@@ -111,21 +98,22 @@ class LinkedList
     end
   end
 
-#  def remove(value)
-#    if head.value == value
-#      head = head.next
-#    else
-#      current_node = head.next
-#      prev_node = head
-#      while current_node
-#        if current_node.value == value
-#          prev_node.next = current_node.next
-#          return true
-#        end
-#        prev_node = current_node
-#        current_node = current_node.next
-#      end
-#      nil
-#    end
-#  end
+  def delete(index)
+    raise IndexError if @first_item.nil?
+
+    current_node = @first_item.next_item
+    prev_node = @first_item
+    while current_node
+      if index == 0
+        @first_item = current_node
+        return true
+      elsif current_node.payload == get(index)
+        prev_node.next_item = current_node.next_item
+        return true
+      end
+      prev_node = current_node
+      current_node = current_node.next_item
+    end
+    nil
+  end
 end
