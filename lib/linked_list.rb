@@ -81,12 +81,8 @@ class LinkedList
 #  end
 
   def last
-    if @first_item.nil?
-      return nil
-    else
-      current_node = @first_item
-      current_node = current_node.next_item until current_node.last?
-      return current_node.payload
+    unless @last_item.nil?
+      @last_item.payload
     end
   end
 
