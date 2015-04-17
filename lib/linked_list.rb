@@ -2,7 +2,11 @@ require_relative 'linked_list_item'
 
 class LinkedList
 
+  attr_reader :size
+
   def initialize(*values)
+    @size = 0
+
     @first_item = LinkedListItem.new(values.first) if values.first
 
     unless @first_item.nil?
@@ -23,6 +27,7 @@ class LinkedList
     else
       @last_item.next_item = new_item
     end
+    @size += 1
     @last_item = new_item
   end
 
@@ -60,17 +65,20 @@ class LinkedList
     end
   end
 
-  def size
-    if @first_item.nil?
-      return 0
-    else
-      current_node = @first_item
-      count = 1
-      current_node = current_node.next_item and
-      count += 1 until current_node.last?
-      count
-    end
-  end
+# Naive Implementation of Size...
+#  def size
+#    if @first_item.nil?
+#      return 0
+#    else
+#      current_node = @first_item
+#      count = 0
+#      until current_node.nil?
+#        current_node = current_node.next_item
+#        count += 1
+#      end
+#      count
+#    end
+#  end
 
   def last
     if @first_item.nil?
