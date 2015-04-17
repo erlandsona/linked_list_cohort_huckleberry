@@ -7,23 +7,16 @@ class LinkedList
   def initialize(*values)
     @size = 0
 
-    @first_item = LinkedListItem.new(values.first) if values.first
 
-    unless @first_item.nil?
-      iterater = 1
-      while iterater < values.length
-        current_node = @first_item
-        current_node = current_node.next_item until current_node.last?
-        current_node.next_item = LinkedListItem.new(values[iterater])
-        iterater += 1
+      values.length.times do |i|
+        push(values[i])
       end
-    end
   end
 
   def push(item)
     new_item = LinkedListItem.new(item)
     if @first_item.nil?
-      @first_item =  new_item
+      @first_item = new_item
     else
       @last_item.next_item = new_item
     end
@@ -32,13 +25,13 @@ class LinkedList
   end
 
   def get(index)
-    raise IndexError if index < 0 or @first_item.nil?
+    raise IndexError if index < 0
     if index == 0
       @first_item.payload
     else
       current_node = @first_item
       index.times do
-        raise IndexError if current_node.last?
+        raise IndexError if @first_item.nil? or current_node.last?
         current_node = current_node.next_item
       end
       current_node.payload
@@ -64,21 +57,6 @@ class LinkedList
       current_node.payload=(item)
     end
   end
-
-# Naive Implementation of Size...
-#  def size
-#    if @first_item.nil?
-#      return 0
-#    else
-#      current_node = @first_item
-#      count = 0
-#      until current_node.nil?
-#        current_node = current_node.next_item
-#        count += 1
-#      end
-#      count
-#    end
-#  end
 
   def last
     unless @last_item.nil?
@@ -115,6 +93,7 @@ class LinkedList
       end
       prev_node = current_node
       current_node = current_node.next_item
+      @size -= 1
     end
     nil
   end
