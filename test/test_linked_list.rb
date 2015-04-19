@@ -142,13 +142,25 @@ class LinkedListTest < MiniTest::Unit::TestCase
     assert_equal("bar-be-que", ll[1])
   end
 
-  def test_12b_bracket_assignment_results
+  def test_12b_bracket_assignment_index_0
+    ll = LinkedList.new("foo", "bar", "grille")
+    ll[0] = "bar-be-que"
+    assert_equal("bar-be-que", ll[0])
+  end
+
+  def test_12c_bracket_assignment_results
     ll = LinkedList.new
     ll.push("foo")
     ll.push("bar")
     ll.push("grille")
     ll[1] = "bar-be-que"
     assert_equal '| foo, bar-be-que, grille |', ll.to_s
+  end
+
+  def test_12d_bracket_assignment_results
+    ll = LinkedList.new("foo","bar","grille")
+    ll[2] = "bar-be-que"
+    assert_equal '| foo, bar, bar-be-que |', ll.to_s
   end
 
   def test_13a_delete_item_changes_size

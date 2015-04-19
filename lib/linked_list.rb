@@ -46,14 +46,22 @@ class LinkedList
   end
 
   def []=(index, item)
-    if index == 0
-      @first_item.payload
-    else
-      current_node = @first_item
-      index.times do
-        current_node = current_node.next_item
+    raise IndexError if @first_item.nil?
+    replacement_node = LinkedListItem.new(item)
+    current_node = @first_item.next_item
+    prev_node = @first_item
+    until current_node.nil?
+      if index == 0
+        @first_item = replacement_node
+        replacement_node.next_item = current_node
+        return true
+      elsif current_node.payload == get(index)
+        prev_node.next_item = replacement_node
+        replacement_node.next_item = current_node.next_item
+        return true
       end
-      current_node.payload=(item)
+      prev_node = current_node
+      current_node = current_node.next_item
     end
   end
 
@@ -65,7 +73,9 @@ class LinkedList
 
 
 #  def delete(index)
-#
+#    raise IndexError if @first_item.nil?
+#    prev_node = @first_item
+#    current_node = @first_item.next_item
 #    @size -= 1
 #  end
 
