@@ -7,8 +7,8 @@ class LinkedList
   def initialize(*values)
     @size = 0
     # Refactor to utilize values.each or some other Enumerable Method...
-    values.length.times do |i|
-      push(values[i])
+    values.each do |i|
+      push(i)
     end
   end
 
