@@ -62,23 +62,6 @@ class LinkedList
     end
   end
 
-#  def []=(index, item)
-#    raise IndexError if @first_item.nil?
-#    replacement_node = LinkedListItem.new(item)
-#    current_node = @first_item.next_item
-#    prev_node = @first_item
-#    if index == 0
-#      @first_item = replacement_node
-#      replacement_node.next_item = current_node
-#    end
-#    index.times do
-#      prev_node = current_node
-#      current_node = current_node.next_item
-#    end
-#    prev_node.next_item = replacement_node
-#    replacement_node.next_item = current_node
-#  end
-
   def last
     unless @last_item.nil?
       @last_item.payload
