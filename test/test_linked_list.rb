@@ -139,6 +139,7 @@ class LinkedListTest < MiniTest::Unit::TestCase
   def test_12a_bracket_assignment
     ll = LinkedList.new("foo", "bar", "grille")
     ll[1] = "bar-be-que"
+    assert(print ll.to_s)
     assert_equal("bar-be-que", ll[1])
   end
 

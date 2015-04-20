@@ -41,28 +41,23 @@ class LinkedList
     end
   end
 
-  def [](index)
-    get(index)
-  end
+  alias [] get
 
   def []=(index, item)
     raise IndexError if @first_item.nil?
     replacement_node = LinkedListItem.new(item)
     current_node = @first_item.next_item
     prev_node = @first_item
-    until current_node.nil?
-      if index == 0
-        @first_item = replacement_node
-        replacement_node.next_item = current_node
-        return true
-      elsif current_node.payload == get(index)
-        prev_node.next_item = replacement_node
-        replacement_node.next_item = current_node.next_item
-        return true
-      end
+    if index.zero?
+      @first_item = replacement_node
+      replacement_node.next_item = current_node
+    end
+    index.times do
       prev_node = current_node
       current_node = current_node.next_item
     end
+    prev_node.next_item = replacement_node
+    replacement_node.next_item = current_node
   end
 
   def last
