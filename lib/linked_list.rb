@@ -34,7 +34,7 @@ class LinkedList
 
   def get(index)
     raise IndexError if index < 0
-    if index == 0
+    if index.zero?
       @first_item.payload
     else
       get_item(index).payload
