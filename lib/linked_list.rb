@@ -62,37 +62,29 @@ class LinkedList
     end
   end
 
+  def delete(index)
+    raise IndexError if @first_item.nil?
+    if index == 0
+      current_node = @first_item
+    else
+      prev_node = get_item(index - 1)
+      current_node = prev_node.next_item
+    end
+
+    next_item = current_node.next_item
+
+    if index == 0
+      @first_item = next_item
+    else
+      prev_node.next_item = next_item
+    end
+    @size -= 1
+  end
+
   def last
     unless @last_item.nil?
       @last_item.payload
     end
-  end
-
-
-#  def delete(index)
-#    raise IndexError if @first_item.nil?
-#    prev_node = @first_item
-#    current_node = @first_item.next_item
-#    @size -= 1
-#  end
-
-  def delete(index)
-    raise IndexError if @first_item.nil?
-    current_node = @first_item.next_item
-    prev_node = @first_item
-    until current_node.nil?
-      if index == 0
-        @first_item = current_node
-        return true
-      elsif current_node.payload == get(index)
-        prev_node.next_item = current_node.next_item
-        return true
-      end
-      prev_node = current_node
-      current_node = current_node.next_item
-      @size -= 1
-    end
-    nil
   end
 
   def to_s
