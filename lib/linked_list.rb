@@ -34,7 +34,7 @@ class LinkedList
 
   def get(index)
     raise IndexError if index < 0
-    if index.zero?
+    if index == 0
       @first_item.payload
     else
       get_item(index).payload
@@ -44,21 +44,40 @@ class LinkedList
   alias [] get
 
   def []=(index, item)
-    raise IndexError if @first_item.nil?
-    replacement_node = LinkedListItem.new(item)
-    current_node = @first_item.next_item
-    prev_node = @first_item
-    if index.zero?
-      @first_item = replacement_node
-      replacement_node.next_item = current_node
+    if index == 0
+      current_node = @first_item
+    else
+      prev_node = get_item(index - 1)
+      current_node = prev_node.next_item
     end
-    index.times do
-      prev_node = current_node
-      current_node = current_node.next_item
+
+    new_item = LinkedListItem.new(item)
+    next_item = current_node.next_item
+    new_item.next_item = next_item
+
+    if index == 0
+      @first_item = new_item
+    else
+      prev_node.next_item = new_item
     end
-    prev_node.next_item = replacement_node
-    replacement_node.next_item = current_node
   end
+
+#  def []=(index, item)
+#    raise IndexError if @first_item.nil?
+#    replacement_node = LinkedListItem.new(item)
+#    current_node = @first_item.next_item
+#    prev_node = @first_item
+#    if index == 0
+#      @first_item = replacement_node
+#      replacement_node.next_item = current_node
+#    end
+#    index.times do
+#      prev_node = current_node
+#      current_node = current_node.next_item
+#    end
+#    prev_node.next_item = replacement_node
+#    replacement_node.next_item = current_node
+#  end
 
   def last
     unless @last_item.nil?
